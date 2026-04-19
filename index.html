@@ -3,671 +3,1108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>卡密获取系统 - 文本广告实验</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>✨ 吕文婧 · 星空生日祝福</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #f0f0f0;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        h1 {
-            color: #4cc9f0;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-        
-        .subtitle {
-            color: #a9a9b8;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        .progress-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .progress-title {
-            font-size: 1.5rem;
-            color: #72efdd;
-        }
-        
-        .progress-bar {
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
             overflow: hidden;
-            margin-bottom: 15px;
+            background: #000;
         }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4361ee, #4cc9f0);
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-        
-        .progress-text {
-            text-align: center;
-            font-weight: bold;
-            color: #a9a9b8;
-        }
-        
-        .tasks-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .task-card {
-            background: rgba(30, 30, 46, 0.8);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        
-        .task-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .task-card.active {
-            border: 2px solid #4cc9f0;
-            box-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
-        }
-        
-        .task-card.locked {
-            opacity: 0.7;
-            filter: brightness(0.7);
-            pointer-events: none;
-        }
-        
-        .task-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .task-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-right: 15px;
-            background: rgba(76, 201, 240, 0.1);
-            color: #4cc9f0;
-        }
-        
-        .task-title {
-            font-size: 1.3rem;
-            color: #f0f0f0;
-        }
-        
-        .task-description {
-            color: #a9a9b8;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        
-        .task-timer {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #72efdd;
-            margin: 10px 0;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .task-btn {
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(90deg, #4361ee, #3a0ca3);
-            color: white;
-        }
-        
-        .task-btn:hover {
-            background: linear-gradient(90deg, #3a56d4, #2d0a8a);
-            transform: scale(1.02);
-        }
-        
-        .task-btn:disabled {
-            background: #555;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .task-btn i {
-            margin-right: 8px;
-        }
-        
-        .task-completed {
-            color: #4ade80;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.2rem;
-            padding: 10px;
-        }
-        
-        .lock-overlay {
-            position: absolute;
+
+        /* 星空背景 */
+        .starfield {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
+            background: radial-gradient(ellipse at center, #0a0a2a 0%, #000 100%);
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .star-small {
+            width: 1px;
+            height: 1px;
+        }
+
+        .star-medium {
+            width: 2px;
+            height: 2px;
+        }
+
+        .star-large {
+            width: 3px;
+            height: 3px;
+        }
+
+        /* 登录界面 */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.85);
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        
-        .lock-icon {
-            font-size: 2rem;
+
+        .login-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            animation: floatUp 0.8s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            color: #ff6b9d;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .login-subtitle {
+            color: #b0b0ff;
+            margin-bottom: 35px;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            color: #a0a0ff;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-radius: 15px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
+        }
+
+        .input-field:focus {
+            border-color: #ff6b9d;
+            box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+        }
+
+        .error-message {
+            color: #ff4757;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .main-content.show {
+            display: block;
+        }
+
+        /* 弹幕层 */
+        .danmu-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .danmu-item {
+            position: absolute;
+            padding: 8px 20px;
             background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            font-size: 1rem;
+            white-space: nowrap;
+            color: white;
+            pointer-events: none;
+            animation: danmuMove linear forwards;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .danmu-item.heart {
+            background: rgba(255, 51, 102, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .danmu-item.star {
+            background: rgba(255, 215, 0, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .danmu-item.pink {
+            background: rgba(255, 107, 157, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes danmuMove {
+            from {
+                transform: translateX(100vw);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* 蛋糕容器 */
+        .cake-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* 蛋糕样式 */
+        .cake {
+            position: relative;
+            width: 200px;
+            height: 220px;
+            margin: 0 auto;
+        }
+
+        .candles {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: -5px;
+        }
+
+        .candle {
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(to top, #fff, #ffe4c4);
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .flame {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 18px;
+            background: linear-gradient(to top, #ff9900, #ffcc00, #ffff00);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.3s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px #ff9900, 0 0 40px #ffcc00;
+        }
+
+        @keyframes flicker {
+            0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+            50% { transform: translateX(-50%) scaleY(1.1) scaleX(0.9); }
+        }
+
+        .layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+
+        .layer-1 {
+            width: 180px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+            bottom: 0;
+            box-shadow: inset 0 -5px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .layer-2 {
+            width: 150px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff8fab, #ffb6c1);
+            bottom: 45px;
+            box-shadow: inset 0 -5px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .layer-3 {
+            width: 120px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b9d, #ff8fab);
+            bottom: 85px;
+            box-shadow: inset 0 -5px 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .cream {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .cream-1 { top: 40px; left: 20px; }
+        .cream-2 { top: 40px; right: 20px; }
+        .cream-3 { top: 85px; left: 35px; }
+        .cream-4 { top: 85px; right: 35px; }
+
+        .strawberry {
+            position: absolute;
+            width: 20px;
+            height: 22px;
+            background: #ff3366;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .plate {
+            position: absolute;
+            width: 220px;
+            height: 15px;
+            background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+            border-radius: 5px;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 生日文字 */
+        .birthday-title {
+            margin-top: 250px;
+            font-size: 2.5rem;
+            font-weight: 300;
+            background: linear-gradient(135deg, #ff6b9d, #ff8fab, #b0b0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 5px;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 107, 157, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .birthday-name {
+            font-size: 1.5rem;
+            color: #b0b0ff;
+            margin-top: 10px;
+            letter-spacing: 3px;
+        }
+
+        /* 右下角音乐按钮 */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
             width: 60px;
             height: 60px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #ff6699, #ff3366);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.4);
+            z-index: 100;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
-        .result-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+        .music-btn:hover {
+            transform: scale(1.1);
         }
-        
-        .result-title {
-            font-size: 1.8rem;
-            color: #72efdd;
-            margin-bottom: 20px;
+
+        .music-btn.playing {
+            animation: rotate 2s linear infinite;
         }
-        
-        .card-display {
-            background: rgba(30, 30, 46, 0.9);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
-            border: 1px dashed #4cc9f0;
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        
-        .card-code {
-            font-family: 'Courier New', monospace;
-            font-size: 1.8rem;
-            letter-spacing: 3px;
-            color: #4ade80;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            margin: 15px 0;
+
+        /* 流星 */
+        .shooting-star {
+            position: fixed;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, white);
+            z-index: 0;
+            animation: shootingStar linear forwards;
         }
-        
-        .hidden {
-            display: none;
+
+        @keyframes shootingStar {
+            0% {
+                transform: translateX(-100px) translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
         }
-        
-        .instructions {
-            background: rgba(76, 201, 240, 0.1);
-            border-left: 4px solid #4cc9f0;
-            padding: 20px;
-            border-radius: 0 10px 10px 0;
-            margin-top: 30px;
+
+        /* 星星动画 */
+        .pulsing-star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: pulseStar 3s infinite;
         }
-        
-        .instructions h3 {
-            color: #4cc9f0;
-            margin-bottom: 10px;
+
+        @keyframes pulseStar {
+            0%, 100% { 
+                opacity: 0.3;
+                box-shadow: 0 0 5px white;
+            }
+            50% { 
+                opacity: 1;
+                box-shadow: 0 0 20px white, 0 0 40px rgba(255, 255, 255, 0.5);
+            }
         }
-        
-        .instructions ul {
-            padding-left: 20px;
-            line-height: 1.6;
+
+        /* 星座连接线 */
+        .constellation-line {
+            position: absolute;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            transform-origin: 0 0;
+            z-index: 0;
         }
-        
-        .instructions li {
-            margin-bottom: 8px;
+
+        /* 流星轨迹 */
+        .meteor-trail {
+            position: fixed;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            z-index: 0;
         }
-        
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #a9a9b8;
-            font-size: 0.9rem;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+        /* 流星粒子 */
+        .meteor-particle {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            z-index: 0;
         }
-        
+
+        /* 响应式 */
         @media (max-width: 768px) {
-            .tasks-container {
-                grid-template-columns: 1fr;
+            .birthday-title {
+                font-size: 1.8rem;
+                margin-top: 200px;
             }
             
-            h1 {
-                font-size: 2rem;
+            .cake {
+                transform: scale(0.8);
             }
             
-            .task-card {
-                padding: 20px;
+            .music-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-key"></i> 卡密获取系统</h1>
-            <p class="subtitle">完成下方5个广告任务即可获得专属卡密。每个任务需要观看30秒广告，倒计时结束后自动进入下一任务。</p>
-        </header>
-        
-        <div class="progress-container">
-            <div class="progress-header">
-                <h2 class="progress-title">任务进度</h2>
-                <span class="progress-text">完成 <span id="completed-count">0</span>/5 个任务</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
-        </div>
-        
-        <div class="tasks-container" id="tasks-container">
-            <!-- 任务将通过JavaScript动态生成 -->
-        </div>
-        
-        <div class="result-container hidden" id="result-container">
-            <h2 class="result-title"><i class="fas fa-gift"></i> 恭喜您完成所有任务！</h2>
-            <p>您的卡密已生成，请妥善保存：</p>
+    <!-- 星空背景 -->
+    <div class="starfield" id="starfield"></div>
+    
+    <!-- 登录界面 -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1 class="login-title">✨ 星空生日祝福</h1>
+            <p class="login-subtitle">请输入专属密码解锁星空祝福</p>
             
-            <div class="card-display">
-                <p>卡密代码：</p>
-                <div class="card-code" id="card-code">正在生成...</div>
-                <p><i class="fas fa-exclamation-circle"></i> 此卡密仅限一次使用，有效期为30天</p>
+            <div class="input-group">
+                <label class="input-label">用户名</label>
+                <input type="text" class="input-field" id="username" placeholder="请输入用户名" value="">
             </div>
             
-            <button class="task-btn" id="copy-btn" style="margin-top: 15px;">
-                <i class="fas fa-copy"></i> 复制卡密
-            </button>
-        </div>
-        
-        <div class="instructions">
-            <h3><i class="fas fa-info-circle"></i> 使用说明</h3>
-            <ul>
-                <li>按照顺序完成5个广告任务，每个任务需要观看30秒广告</li>
-                <li>点击"观看广告"按钮将在新标签页打开广告页面</li>
-                <li>当您观看一个广告时，其他任务的按钮将被锁定</li>
-                <li>返回本页面等待30秒倒计时结束，当前任务将自动标记为完成</li>
-                <li>倒计时结束后，下一个任务将自动解锁</li>
-                <li>完成所有5个任务后，您的专属卡密将会显示</li>
-            </ul>
-        </div>
-        
-        <div class="footer">
-            <p>本页面仅为模拟演示，生成的卡密仅用于测试目的 | 广告链接来自公开资源</p>
+            <div class="input-group">
+                <label class="input-label">密码</label>
+                <input type="password" class="input-field" id="password" placeholder="格式：月月日日" value="">
+            </div>
+            
+            <button class="login-btn" id="loginBtn">进入星空祝福</button>
+            <p class="error-message" id="errorMessage">用户名或密码错误</p>
         </div>
     </div>
-
-    <script>
-        // 广告任务数据 - 使用用户提供的文本网页作为广告链接
-        const tasks = [
-            {
-                id: 1,
-                title: "文本广告任务一",
-                description: "观看30秒文本广告，测试跳转功能与倒计时锁定机制。",
-                icon: "fas fa-file-alt",
-                videoUrl: "https://raw.githubusercontent.com/kid1145146/Roblox/refs/heads/main/OrionLib.txt",
-                completed: false,
-                locked: false
-            },
-            {
-                id: 2,
-                title: "文本广告任务二",
-                description: "验证广告跳转与任务锁定功能的交互效果。",
-                icon: "fas fa-file-contract",
-                videoUrl: "https://raw.githubusercontent.com/kid1145146/Roblox/refs/heads/main/OrionLib.txt",
-                completed: false,
-                locked: true
-            },
-            {
-                id: 3,
-                title: "文本广告任务三",
-                description: "测试多任务顺序执行与自动解锁机制。",
-                icon: "fas fa-file-invoice",
-                videoUrl: "https://raw.githubusercontent.com/kid1145146/Roblox/refs/heads/main/OrionLib.txt",
-                completed: false,
-                locked: true
-            },
-            {
-                id: 4,
-                title: "文本广告任务四",
-                description: "验证界面美化效果与任务状态视觉反馈。",
-                icon: "fas fa-file-prescription",
-                videoUrl: "https://raw.githubusercontent.com/kid1145146/Roblox/refs/heads/main/OrionLib.txt",
-                completed: false,
-                locked: true
-            },
-            {
-                id: 5,
-                title: "文本广告任务五",
-                description: "完成最终测试，获取高级卡密奖励。",
-                icon: "fas fa-file-signature",
-                videoUrl: "https://raw.githubusercontent.com/kid1145146/Roblox/refs/heads/main/OrionLib.txt",
-                completed: false,
-                locked: true
-            }
-        ];
-
-        // 当前活动的任务ID
-        let activeTaskId = null;
-        // 当前倒计时任务ID
-        let countdownTaskId = null;
+    
+    <!-- 主内容区 -->
+    <div class="main-content" id="mainContent">
+        <!-- 弹幕层 -->
+        <div class="danmu-layer" id="danmuLayer"></div>
         
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            const tasksContainer = document.getElementById('tasks-container');
+        <!-- 蛋糕容器 -->
+        <div class="cake-container">
+            <div class="cake">
+                <!-- 蜡烛 -->
+                <div class="candles">
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                </div>
+                
+                <!-- 蛋糕层 -->
+                <div class="layer layer-1"></div>
+                <div class="layer layer-2"></div>
+                <div class="layer layer-3"></div>
+                
+                <!-- 奶油装饰 -->
+                <div class="cream cream-1"></div>
+                <div class="cream cream-2"></div>
+                <div class="cream cream-3"></div>
+                <div class="cream cream-4"></div>
+                
+                <!-- 草莓 -->
+                <div class="strawberry"></div>
+                
+                <!-- 底座 -->
+                <div class="plate"></div>
+            </div>
             
-            // 生成任务卡片
-            tasks.forEach((task, index) => {
-                const taskCard = document.createElement('div');
-                taskCard.className = 'task-card';
-                if (task.completed) taskCard.classList.add('completed');
-                if (task.locked) taskCard.classList.add('locked');
-                
-                taskCard.id = `task-${task.id}`;
-                
-                // 创建锁定覆盖层（如果任务被锁定）
-                const lockOverlay = task.locked && !task.completed ? `
-                    <div class="lock-overlay">
-                        <div class="lock-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                    </div>
-                ` : '';
-                
-                taskCard.innerHTML = `
-                    ${lockOverlay}
-                    <div class="task-header">
-                        <div class="task-icon">
-                            <i class="${task.icon}"></i>
-                        </div>
-                        <h3 class="task-title">${task.title}</h3>
-                    </div>
-                    <p class="task-description">${task.description}</p>
-                    <div class="task-timer ${task.completed ? 'hidden' : ''}" id="timer-${task.id}">30秒</div>
-                    <div class="task-completed ${task.completed ? '' : 'hidden'}" id="completed-${task.id}">
-                        <i class="fas fa-check-circle"></i> 任务已完成
-                    </div>
-                    <button class="task-btn" id="btn-${task.id}" ${task.locked || task.completed ? 'disabled' : ''}>
-                        <i class="fas fa-play-circle"></i> ${task.completed ? '任务已完成' : '观看广告'}
-                    </button>
-                `;
-                
-                tasksContainer.appendChild(taskCard);
-                
-                // 为按钮添加点击事件
-                if (!task.completed && !task.locked) {
-                    const btn = document.getElementById(`btn-${task.id}`);
-                    btn.addEventListener('click', () => startTask(task.id, index));
+            <h1 class="birthday-title">Happy Birthday</h1>
+            <p class="birthday-name">吕文婧</p>
+        </div>
+        
+        <!-- 右下角音乐按钮 -->
+        <button class="music-btn" id="musicBtn" title="播放/暂停音乐">🎵</button>
+    </div>
+    
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-horn-576.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // 登录信息
+        const CORRECT_USERNAME = '吕文婧';
+        const CORRECT_PASSWORD = '0420'; // 4月20日
+
+        // DOM元素
+        const loginContainer = document.getElementById('loginContainer');
+        const mainContent = document.getElementById('mainContent');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const danmuLayer = document.getElementById('danmuLayer');
+        const starfield = document.getElementById('starfield');
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+
+        // 状态变量
+        let isPlaying = false;
+        let autoDanmuInterval = null;
+        let danmuSpeed = 1.0; // 弹幕速度倍数
+        let danmuTypes = ['', 'heart', 'star', 'pink']; // 弹幕类型
+        let blessingIndex = 0; // 祝福语索引
+        let autoMeteorInterval = null; // 自动流星定时器
+        let meteorActiveCount = 0; // 当前活跃的流星数量
+        const MAX_METEORS = 8; // 最大同时存在的流星数量
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // 登录验证
+            loginBtn.addEventListener('click', handleLogin);
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleLogin();
                 }
             });
-            
-            updateProgress();
+
+            // 音乐控制
+            musicBtn.addEventListener('click', function() {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicBtn.classList.remove('playing');
+                } else {
+                    bgMusic.play().catch(e => {
+                        console.log("音频播放失败");
+                        showMessage("请先点击页面任意位置，再点击音乐按钮");
+                    });
+                    musicBtn.classList.add('playing');
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // 页面点击允许音频播放
+            document.body.addEventListener('click', function() {
+                if (bgMusic.paused) {
+                    bgMusic.play().then(() => {
+                        bgMusic.pause();
+                    });
+                }
+            });
         });
 
-        // 锁定所有其他任务
-        function lockAllOtherTasks(exceptTaskId) {
-            tasks.forEach(task => {
-                if (task.id !== exceptTaskId && !task.completed) {
-                    task.locked = true;
-                    const taskCard = document.getElementById(`task-${task.id}`);
-                    const btn = document.getElementById(`btn-${task.id}`);
-                    
-                    if (taskCard && !taskCard.querySelector('.lock-overlay')) {
-                        const lockOverlay = document.createElement('div');
-                        lockOverlay.className = 'lock-overlay';
-                        lockOverlay.innerHTML = `
-                            <div class="lock-icon">
-                                <i class="fas fa-lock"></i>
-                            </div>
-                        `;
-                        taskCard.appendChild(lockOverlay);
-                        taskCard.classList.add('locked');
-                    }
-                    
-                    if (btn) btn.disabled = true;
-                }
-            });
-        }
-        
-        // 解锁下一个任务
-        function unlockNextTask(currentTaskId) {
-            const currentIndex = tasks.findIndex(t => t.id === currentTaskId);
-            if (currentIndex < tasks.length - 1) {
-                const nextTaskId = tasks[currentIndex + 1].id;
-                const nextTask = tasks.find(t => t.id === nextTaskId);
-                
-                if (nextTask && !nextTask.completed) {
-                    nextTask.locked = false;
-                    const nextCard = document.getElementById(`task-${nextTaskId}`);
-                    const lockOverlay = nextCard.querySelector('.lock-overlay');
-                    const btn = document.getElementById(`btn-${nextTaskId}`);
-                    
-                    if (lockOverlay) lockOverlay.remove();
-                    if (nextCard) nextCard.classList.remove('locked');
-                    if (btn) btn.disabled = false;
-                    
-                    // 设置当前活动任务
-                    activeTaskId = nextTaskId;
-                    nextCard.classList.add('active');
-                    
-                    // 滚动到下一个任务
-                    setTimeout(() => {
-                        nextCard.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                    }, 500);
-                }
-            }
-        }
+        // 登录处理
+        function handleLogin() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
 
-        // 开始任务
-        function startTask(taskId, taskIndex) {
-            const task = tasks[taskIndex];
-            if (task.completed) return;
-            
-            // 设置当前活动任务
-            activeTaskId = taskId;
-            const taskCard = document.getElementById(`task-${taskId}`);
-            taskCard.classList.add('active');
-            
-            // 锁定所有其他任务
-            lockAllOtherTasks(taskId);
-            
-            // 打开广告页面（新标签页）- 使用用户提供的文本网页
-            window.open(task.videoUrl, '_blank');
-            
-            // 禁用当前按钮
-            const btn = document.getElementById(`btn-${taskId}`);
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-hourglass-half"></i> 广告播放中...';
-            
-            // 显示倒计时
-            const timerElement = document.getElementById(`timer-${taskId}`);
-            timerElement.classList.remove('hidden');
-            
-            // 开始倒计时
-            let timeLeft = 30;
-            countdownTaskId = taskId;
-            
-            const countdown = setInterval(() => {
-                timeLeft--;
-                timerElement.textContent = `${timeLeft}秒`;
+            if (username === CORRECT_USERNAME && password === CORRECT_PASSWORD) {
+                // 登录成功
+                loginContainer.classList.add('hidden');
+                mainContent.classList.add('show');
+                startCelebration();
+            } else {
+                // 登录失败
+                errorMessage.classList.add('show');
+                passwordInput.style.borderColor = '#ff4757';
                 
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    countdownTaskId = null;
-                    completeTask(taskId, taskIndex);
-                }
-            }, 1000);
-            
-            // 存储倒计时引用
-            task.countdown = countdown;
-        }
-
-        // 完成任务
-        function completeTask(taskId, taskIndex) {
-            // 标记任务为完成
-            tasks[taskIndex].completed = true;
-            
-            // 更新UI
-            const btn = document.getElementById(`btn-${taskId}`);
-            btn.innerHTML = '<i class="fas fa-check-circle"></i> 任务已完成';
-            btn.style.background = '#10b981';
-            
-            const timerElement = document.getElementById(`timer-${taskId}`);
-            timerElement.classList.add('hidden');
-            
-            const completedElement = document.getElementById(`completed-${taskId}`);
-            completedElement.classList.remove('hidden');
-            
-            const taskCard = document.getElementById(`task-${taskId}`);
-            taskCard.classList.add('completed');
-            taskCard.classList.remove('active');
-            
-            // 更新进度
-            updateProgress();
-            
-            // 解锁下一个任务（如果存在）
-            unlockNextTask(taskId);
-            
-            // 检查是否所有任务都完成
-            checkAllTasksCompleted();
-        }
-
-        // 更新进度条
-        function updateProgress() {
-            const completedTasks = tasks.filter(task => task.completed).length;
-            const completedCountElement = document.getElementById('completed-count');
-            const progressFillElement = document.getElementById('progress-fill');
-            
-            completedCountElement.textContent = completedTasks;
-            const progressPercentage = (completedTasks / tasks.length) * 100;
-            progressFillElement.style.width = `${progressPercentage}%`;
-        }
-
-        // 检查所有任务是否完成
-        function checkAllTasksCompleted() {
-            const allCompleted = tasks.every(task => task.completed);
-            
-            if (allCompleted) {
-                // 显示卡密结果
-                const resultContainer = document.getElementById('result-container');
-                resultContainer.classList.remove('hidden');
-                
-                // 生成卡密
-                generateCardCode();
-                
-                // 滚动到结果区域
                 setTimeout(() => {
-                    resultContainer.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }, 500);
+                    errorMessage.classList.remove('show');
+                    passwordInput.style.borderColor = 'rgba(255, 182, 193, 0.5)';
+                }, 3000);
             }
         }
 
-        // 生成卡密
-        function generateCardCode() {
-            const cardCodeElement = document.getElementById('card-code');
+        // 创建星空
+        function createStars() {
+            const starCount = 500; // 500颗星星
             
-            // 模拟生成一个随机卡密
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let code = '';
-            for (let i = 0; i < 16; i++) {
-                if (i > 0 && i % 4 === 0 && i < 16) code += '-';
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            // 创建普通星星
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                const starSize = Math.random();
+                let starClass = 'star-small';
+                if (starSize > 0.8) {
+                    starClass = 'star-large';
+                } else if (starSize > 0.5) {
+                    starClass = 'star-medium';
+                }
+                
+                star.className = `star ${starClass}`;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                
+                // 随机颜色
+                const colors = ['#ffffff', '#b0b0ff', '#ffb6c1', '#ffe4c4', '#a0e0ff'];
+                star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 闪烁效果
+                if (Math.random() > 0.3) { // 70%的星星有闪烁效果
+                    const duration = Math.random() * 4 + 2;
+                    const delay = Math.random() * 6;
+                    star.style.animation = `twinkle ${duration}s infinite ${delay}s alternate`;
+                }
+                
+                starfield.appendChild(star);
             }
             
-            cardCodeElement.textContent = code;
+            // 创建脉冲星星
+            for (let i = 0; i < 30; i++) { // 30颗脉冲星星
+                const pulsingStar = document.createElement('div');
+                pulsingStar.className = 'pulsing-star';
+                const size = Math.random() * 5 + 2;
+                pulsingStar.style.width = size + 'px';
+                pulsingStar.style.height = size + 'px';
+                pulsingStar.style.left = Math.random() * 100 + 'vw';
+                pulsingStar.style.top = Math.random() * 100 + 'vh';
+                pulsingStar.style.animationDelay = Math.random() * 3 + 's';
+                pulsingStar.style.animationDuration = Math.random() * 2 + 2 + 's';
+                
+                const colors = ['#ff6b9d', '#b0b0ff', '#ffff00', '#ffffff', '#ffcc00'];
+                pulsingStar.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                starfield.appendChild(pulsingStar);
+            }
             
-            // 添加复制功能
-            document.getElementById('copy-btn').addEventListener('click', function() {
-                navigator.clipboard.writeText(code).then(() => {
-                    const originalText = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-check"></i> 已复制到剪贴板';
-                    this.style.background = '#10b981';
-                    
-                    setTimeout(() => {
-                        this.innerHTML = originalText;
-                        this.style.background = '';
-                    }, 2000);
-                });
-            });
+            // 创建星座连接线
+            createConstellation();
         }
+
+        // 创建星座
+        function createConstellation() {
+            const starCount = 12; // 12颗星座星星
+            const stars = [];
+            
+            // 创建星座的星星
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star star-large';
+                const x = Math.random() * 80 + 10;
+                const y = Math.random() * 80 + 10;
+                star.style.left = x + 'vw';
+                star.style.top = y + 'vh';
+                star.style.backgroundColor = '#b0b0ff';
+                star.style.boxShadow = '0 0 15px #b0b0ff';
+                stars.push({x, y, element: star});
+                starfield.appendChild(star);
+            }
+            
+            // 创建星座连接线
+            for (let i = 0; i < stars.length - 1; i++) {
+                for (let j = i + 1; j < stars.length; j++) {
+                    if (Math.random() > 0.6) { // 40%的连接概率
+                        const line = document.createElement('div');
+                        line.className = 'constellation-line';
+                        
+                        const x1 = stars[i].x;
+                        const y1 = stars[i].y;
+                        const x2 = stars[j].x;
+                        const y2 = stars[j].y;
+                        
+                        const dx = x2 - x1;
+                        const dy = y2 - y1;
+                        const length = Math.sqrt(dx * dx + dy * dy);
+                        const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                        
+                        line.style.left = x1 + 'vw';
+                        line.style.top = y1 + 'vh';
+                        line.style.width = length + 'vw';
+                        line.style.transform = `rotate(${angle}deg)`;
+                        
+                        // 闪烁效果
+                        line.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite ${Math.random() * 2}s alternate`;
+                        line.style.boxShadow = '0 0 5px rgba(255, 255, 255, 0.5)';
+                        
+                        starfield.appendChild(line);
+                    }
+                }
+            }
+        }
+
+        // 创建流星
+        function createShootingStar() {
+            if (meteorActiveCount >= MAX_METEORS) {
+                return; // 达到最大流星数量，不再创建
+            }
+            
+            meteorActiveCount++;
+            
+            const shootingStar = document.createElement('div');
+            shootingStar.className = 'shooting-star';
+            
+            // 随机起点位置
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 30; // 流星从上部分开始
+            
+            // 随机方向
+            const angle = Math.random() * 30 + 20; // 20-50度
+            const distance = Math.sqrt(window.innerWidth * window.innerWidth + window.innerHeight * window.innerHeight) + 300;
+            
+            shootingStar.style.left = startX + 'vw';
+            shootingStar.style.top = startY + 'vh';
+            
+            // 随机大小
+            const width = Math.random() * 80 + 60; // 60-140px
+            shootingStar.style.width = width + 'px';
+            
+            // 随机速度
+            const speed = Math.random() * 1.5 + 0.8; // 0.8-2.3秒
+            shootingStar.style.animationDuration = speed + 's';
+            
+            // 设置动画关键帧
+            const animationName = `shootingStar${Date.now()}`;
+            const keyframes = `
+                @keyframes ${animationName} {
+                    0% {
+                        transform: translateX(0) translateY(0) rotate(${angle}deg);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translateX(${distance}px) translateY(${distance * Math.tan(angle * Math.PI / 180)}px) rotate(${angle}deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            
+            // 添加关键帧
+            const style = document.createElement('style');
+            style.textContent = keyframes;
+            document.head.appendChild(style);
+            
+            // 应用动画
+            shootingStar.style.animation = `${animationName} ${shootingStar.style.animationDuration} linear forwards`;
+            
+            // 随机颜色
+            const colors = ['#ffffff', '#b0b0ff', '#ffb6c1', '#ffcc00', '#a0e0ff', '#ff9966'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            shootingStar.style.background = `linear-gradient(to right, transparent, ${color})`;
+            
+            // 添加尾迹效果
+            createMeteorTrail(shootingStar, startX, startY, angle, width, color);
+            
+            // 添加流星粒子效果
+            createMeteorParticles(shootingStar, startX, startY, angle, width, color, speed);
+            
+            document.querySelector('.main-content').appendChild(shootingStar);
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                if (shootingStar.parentNode) {
+                    shootingStar.parentNode.removeChild(shootingStar);
+                }
+                // 移除关键帧
+                if (style.parentNode) {
+                    style.parentNode.removeChild(style);
+                }
+                meteorActiveCount--;
+            }, speed * 1000);
+        }
+
+        // 创建流星尾迹
+        function createMeteorTrail(meteor, startX, startY, angle, width, color) {
+            const trail = document.createElement('div');
+            trail.className = 'meteor-trail';
+            
+            const trailLength = width * 0.8;
+            const trailOpacity = 0.4;
+            
+            trail.style.left = startX + 'vw';
+            trail.style.top = startY + 'vh';
+            trail.style.width = trailLength + 'px';
+            trail.style.transform = `rotate(${angle}deg)`;
+            trail.style.opacity = trailOpacity;
+            trail.style.background = `linear-gradient(to right, transparent, ${color}${Math.floor(trailOpacity * 255).toString(16).padStart(2, '0')}, transparent)`;
+            
+            document.querySelector('.main-content').appendChild(trail);
+            
+            // 尾迹动画
+            trail.style.animation = `shootingStar ${parseFloat(meteor.style.animationDuration)}s linear forwards`;
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                if (trail.parentNode) {
+                    trail.parentNode.removeChild(trail);
+                }
+            }, parseFloat(meteor.style.animationDuration) * 1000);
+        }
+
+        // 创建流星粒子
+        function createMeteorParticles(meteor, startX, startY, angle, width, color, speed) {
+            const particleCount = Math.floor(Math.random() * 8) + 5; // 5-12个粒子
+            
+            for (let i = 0; i < particleCount; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'meteor-particle';
+                    
+                    const particleSize = Math.random() * 3 + 1;
+                    const particleX = Math.random() * 20 - 10;
+                    const particleY = Math.random() * 20 - 10;
+                    
+                    particle.style.width = particleSize + 'px';
+                    particle.style.height = particleSize + 'px';
+                    particle.style.left = (startX + particleX) + 'vw';
+                    particle.style.top = (startY + particleY) + 'vh';
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 ${particleSize * 2}px ${color}`;
+                    
+                    // 随机方向
+                    const particleAngle = angle + (Math.random() * 20 - 10);
+                    const particleSpeed = speed * (Math.random() * 0.5 + 0.5);
+                    
+                    const particleAnimationName = `particle${Date.now()}${i}`;
+                    const particleKeyframes = `
+                        @keyframes ${particleAnimationName} {
+                            0% {
+                                transform: translateX(0) translateY(0) rotate(${particleAngle}deg);
+                                opacity: 1;
+                            }
+                            100% {
+                                transform: translateX(${width}px) translateY(${width * Math.tan(particleAngle * Math.PI / 180)}px) rotate(${particleAngle}deg);
+                                opacity: 0;
+                            }
+                        }
+                    `;
+                    
+                    const particleStyle = document.createElement('style');
+                    particleStyle.textContent = particleKeyframes;
+                    document.head.appendChild(particleStyle);
+                    
+                    particle.style.animation = `${particleAnimationName} ${particleSpeed}s linear forwards`;
+                    
+                    document.querySelector('.main-content').appendChild(particle);
+                    
+                    // 粒子动画结束后移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                        if (particleStyle.parentNode) {
+                            particleStyle.parentNode.removeChild(particleStyle);
+                        }
+                    }, particleSpeed * 1000);
+                }, i * 50); // 粒子创建延迟
+            }
+        }
+
+        // 庆祝效果
+        function startCelebration() {
+            // 自动发送弹幕
+            for (let i = 0; i < 8; i++) { // 增加初始弹幕数量
+                setTimeout(() => {
+                    generateAutoDanmu();
+                }, i * 300);
+            }
+            
+            // 设置自动弹幕间隔
+            autoDanmuInterval = setInterval(generateAutoDanmu, 1500); // 缩短弹幕间隔
+            
+            // 启动自动流星效果
+            startAutoMeteor();
+            
+            // 随机弹幕速度变化
+            setInterval(() => {
+                danmuSpeed = 0.7 + Math.random() * 0.8; // 0.7-1.5倍速
+            }, 12000);
+        }
+
+        // 启动自动流星
+        function startAutoMeteor() {
+            // 初始创建一些流星
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createShootingStar();
+                }, i * 500);
+            }
+            
+            // 设置自动流星定时器 - 增加频率
+            autoMeteorInterval = setInterval(() => {
+                // 随机决定是否创建流星
+                if (Math.random() > 0.1) { // 90%的概率创建流星
+                    createShootingStar();
+                }
+                
+                // 偶尔创建流星群
+                if (Math.random() > 0.7) { // 30%的概率创建流星群
+                    setTimeout(() => {
+                        for (let j = 0; j < Math.floor(Math.random() * 3) + 2; j++) { // 2-4颗流星
+                            setTimeout(() => {
+                                createShootingStar();
+                            }, j * 200);
+                        }
+                    }, 100);
+                }
+            }, 1200); // 大幅缩短流星间隔
+        }
+
+        // 祝福语数组
+        const blessings = [
+            {text: '文婧生日快乐！💕', type: 'heart'},
+            {text: '愿你如星光般闪耀！✨', type: 'star'},
+            {text: '爱你每一天！❤️', type: 'heart'},
+            {text: '新的一岁更加美好！🌸', type: 'pink'},
+            {text: '生日快乐我的爱人！🎂', type: 'heart'},
+            {text: '愿你永远幸福快乐！🎁', type: ''},
+            {text: '你是我的小幸运！💖', type: 'heart'},
+            {text: '愿岁月温柔待你！🌹', type: 'pink'},
+            {text: '愿你笑靥如花！🌺', type: ''},
+            {text: '岁岁平安！🕊️', type: ''},
+            {text: '事事顺遂！🍀', type: ''},
+            {text: '愿你光芒万丈！⭐', type: 'star'},
+            {text: '我的心里只有你！💘', type: 'heart'},
+            {text: '生日快乐吕文婧！🎉', type: 'pink'},
+            {text: '愿我们的爱情永恒！🌌', type: 'heart'},
+            {text: '你是最美的星星！🌟', type: 'star'},
+            {text: '愿你梦想成真！🌠', type: 'star'},
+            {text: '永远守护你！🛡️', type: ''},
+            {text: '生日快乐我的宝贝！🎀', type: 'heart'},
+            {text: '愿快乐永远相伴！😊', type: ''},
+            {text: '你是我的满天星辰！🌃', type: 'star'},
+            {text: '愿你的世界永远晴朗！☀️', type: ''},
+            {text: '爱你到地老天荒！💑', type: 'heart'},
+            {text: '愿我们永远在一起！💞', type: 'heart'},
+            {text: '生日快乐，我的挚爱！💝', type: 'heart'},
+            {text: '流星为你划过夜空！🌠', type: 'star'},
+            {text: '星空见证我们的爱！💫', type: 'star'},
+            {text: '愿你的生日如星光璀璨！🌟', type: 'star'},
+            {text: '每一颗星都为你祝福！⭐', type: 'star'},
+            {text: '在星空下许愿，愿成真！🌌', type: ''}
+        ];
+
+        // 生成自动弹幕
+        function generateAutoDanmu() {
+            const blessing = blessings[blessingIndex % blessings.length];
+            sendDanmu(blessing.text, blessing.type);
+            blessingIndex++;
+        }
+
+        // 发送弹幕
+        function sendDanmu(text, type = '') {
+            const danmuItem = document.createElement('div');
+            danmuItem.className = 'danmu-item';
+            if (type) {
+                danmuItem.classList.add(type);
+            }
+            danmuItem.textContent = text;
+            
+            // 随机行
+            const lineCount = 10; // 增加弹幕行数
+            const lineHeight = 100 / lineCount;
+            const line = Math.floor(Math.random() * lineCount);
+            const top = line * lineHeight + Math.random() * (lineHeight - 20);
+            
+            danmuItem.style.top = top + '%';
+            
+            // 随机颜色
+            const colors = ['#ff6b9d', '#ff8fab', '#b0b0ff', '#ffcc00', '#ffffff', '#a0e0ff', '#ff9966'];
+            danmuItem.style.color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // 随机大小
+            const size = Math.random() * 0.4 + 0.8;
+            danmuItem.style.fontSize = (size * 1) + 'rem';
+            
+            // 随机速度
+            const baseDuration = 18; // 缩短基础时间
+            const duration = baseDuration / (danmuSpeed + Math.random() * 0.4);
+            danmuItem.style.animationDuration = duration + 's';
+            
+            danmuLayer.appendChild(danmuItem);
+            
+            // 动画结束后移除
+            setTimeout(() => {
+                if (danmuItem.parentNode) {
+                    danmuItem.parentNode.removeChild(danmuItem);
+                }
+            }, duration * 1000);
+        }
+
+        // 显示消息
+        function showMessage(text) {
+            const message = document.createElement('div');
+            message.textContent = text;
+            message.style.position = 'fixed';
+            message.style.top = '20px';
+            message.style.left = '50%';
+            message.style.transform = 'translateX(-50%)';
+            message.style.background = 'rgba(255, 107, 157, 0.9)';
+            message.style.color = 'white';
+            message.style.padding = '10px 20px';
+            message.style.borderRadius = '20px';
+            message.style.zIndex = '1000';
+            message.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            message.style.fontSize = '0.9rem';
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.style.opacity = '0';
+                message.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 500);
+            }, 2000);
+        }
+
+        // 添加闪烁动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes twinkle {
+                0%, 100% { opacity: 0.3; }
+                50% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
