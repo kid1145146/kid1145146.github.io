@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>宝宝，生日快乐哦🎂</title>
+    <title>✨ 吕文婧 · 生日星空祝福</title>
     <style>
         * {
             margin: 0;
@@ -264,7 +264,7 @@
             transform: translateX(-50%);
         }
 
-        /* 蜡烛 - 修复位置 */
+        /* 蜡烛 */
         .candles {
             position: absolute;
             top: 0;
@@ -392,6 +392,192 @@
             100% { transform: translateX(100vw) translateY(100vh) rotate(45deg); opacity: 0; }
         }
 
+        /* 放大爱心特效容器 */
+        .heart-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            display: none;
+        }
+
+        .heart-effect.show {
+            display: block;
+        }
+
+        .heart-segment {
+            position: absolute;
+            width: 8px; /* 增大粒子 */
+            height: 8px;
+            background: #ff3366;
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 15px #ff3366, 0 0 30px #ff3366; /* 增强光芒 */
+        }
+
+        /* 增强爱心路径动画 */
+        .heart-segment.animate {
+            animation: heartPath 3s ease-out forwards; /* 延长动画时间 */
+        }
+
+        @keyframes heartPath {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.3);
+            }
+            5% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                transform: translate(var(--tx), var(--ty)) scale(1.2); /* 放大最终尺寸 */
+            }
+        }
+
+        /* 放大爱心脉冲效果 */
+        .heart-pulse {
+            position: absolute;
+            width: 500px; /* 增大脉冲范围 */
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 51, 102, 0.9) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            display: none;
+        }
+
+        .heart-pulse.show {
+            display: block;
+            animation: pulseHeart 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseHeart {
+            0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.4); } /* 增强脉冲效果 */
+        }
+
+        /* 新增爱心光环 */
+        .heart-halo {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border: 3px solid rgba(255, 51, 102, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            display: none;
+        }
+
+        .heart-halo.show {
+            display: block;
+            animation: haloExpand 3s ease-out infinite;
+        }
+
+        @keyframes haloExpand {
+            0% { 
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(0.5);
+                border-width: 3px;
+            }
+            100% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5);
+                border-width: 1px;
+            }
+        }
+
+        /* 新增小爱心特效 */
+        .small-heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 51, 102, 0.8);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            opacity: 0;
+            z-index: 4;
+        }
+
+        /* 全屏烟花特效容器 */
+        .firework-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 6;
+            pointer-events: none;
+            display: none;
+        }
+
+        .firework-effect.show {
+            display: block;
+        }
+
+        .firework-particle {
+            position: absolute;
+            width: 5px; /* 增大粒子 */
+            height: 5px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .firework-particle.explode {
+            animation: fireworkExplode 3s ease-out forwards; /* 延长烟花动画时间 */
+        }
+
+        @keyframes fireworkExplode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0.1);
+            }
+        }
+
+        /* 新增烟花轨迹线 */
+        .trail-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, var(--color), transparent);
+            transform-origin: 0 0;
+            opacity: 0;
+        }
+
+        .trail-line.animate {
+            animation: trailFade 1s ease-out forwards;
+        }
+
+        @keyframes trailFade {
+            0% { opacity: 0.8; }
+            100% { opacity: 0; transform: scale(var(--length)); }
+        }
+
+        /* 新增闪光点特效 */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--color);
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkleTwinkle 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes sparkleTwinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
         /* 响应式 */
         @media (max-width: 768px) {
             .birthday-title { font-size: 2rem; letter-spacing: 4px; }
@@ -408,8 +594,8 @@
     <!-- 登录界面 -->
     <div class="login-container" id="loginContainer">
         <div class="login-box">
-            <h1 class="login-title">你猜猜这个是给谁的awa</h1>
-            <p class="login-subtitle">请输入你的生日和名字</p>
+            <h1 class="login-title">✨ 星空生日祝福</h1>
+            <p class="login-subtitle">请输入专属密码解锁星空祝福</p>
             
             <div class="input-group">
                 <label class="input-label">用户名</label>
@@ -476,6 +662,15 @@
             <h1 class="birthday-title">Happy Birthday</h1>
             <p class="birthday-name">吕文婧</p>
         </div>
+        
+        <!-- 放大爱心特效容器 -->
+        <div class="heart-effect" id="heartEffect">
+            <div class="heart-halo" id="heartHalo"></div>
+            <div class="heart-pulse" id="heartPulse"></div>
+        </div>
+        
+        <!-- 全屏烟花特效容器 -->
+        <div class="firework-effect" id="fireworkEffect"></div>
     </div>
     
     <script>
@@ -491,6 +686,10 @@
         const loginBtn = document.getElementById('loginBtn');
         const errorMessage = document.getElementById('errorMessage');
         const danmuLayer = document.getElementById('danmuLayer');
+        const heartEffect = document.getElementById('heartEffect');
+        const heartPulse = document.getElementById('heartPulse');
+        const heartHalo = document.getElementById('heartHalo');
+        const fireworkEffect = document.getElementById('fireworkEffect');
 
         // 状态变量
         let autoDanmuInterval = null;
@@ -499,6 +698,10 @@
         let autoMeteorInterval = null;
         let meteorActiveCount = 0;
         const MAX_METEORS = 8; // 最大流星数量
+        let heartCreated = false; // 标记爱心是否已创建
+        let heartSegments = []; // 存储爱心粒子
+        let explodeTimeout = null; // 爆炸定时器
+        let smallHearts = []; // 存储小爱心
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
@@ -520,6 +723,9 @@
                 loginContainer.classList.add('hidden');
                 mainContent.classList.add('show');
                 startCelebration();
+                
+                // 10秒后显示爱心特效
+                setTimeout(createHeartEffect, 10000);
             } else {
                 errorMessage.classList.add('show');
                 passwordInput.style.borderColor = '#ff6b6b';
@@ -529,6 +735,281 @@
                     passwordInput.style.borderColor = 'rgba(106, 183, 255, 0.5)';
                 }, 3000);
             }
+        }
+
+        // 创建增强的爱心特效
+        function createHeartEffect() {
+            if (heartCreated) return;
+            heartCreated = true;
+            
+            // 显示爱心容器
+            heartEffect.classList.add('show');
+            
+            // 显示爱心光环
+            heartHalo.classList.add('show');
+            
+            // 创建随机小爱心
+            createSmallHearts();
+            
+            // 爱心坐标点（顺时针从左到右形成）- 放大爱心
+            const heartPoints = [];
+            const segments = 150; // 增加分段数量
+            const size = 200; // 增大爱心尺寸
+            
+            // 生成爱心坐标（顺时针从左到右）
+            for (let i = 0; i < segments; i++) {
+                const t = (i / segments) * 2 * Math.PI;
+                const x = 16 * Math.pow(Math.sin(t), 3);
+                const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+                
+                // 调整x坐标，使得爱心从左到右形成
+                const adjustedX = -x; // 将x坐标翻转，使其从左开始
+                
+                heartPoints.push({
+                    x: adjustedX * size/20, // 缩放和调整x坐标
+                    y: -y * size/20, // 缩放y坐标
+                    angle: t
+                });
+            }
+            
+            // 创建爱心的分段
+            for (let i = 0; i < heartPoints.length; i++) {
+                setTimeout(() => {
+                    const segment = document.createElement('div');
+                    segment.className = 'heart-segment';
+                    
+                    const point = heartPoints[i];
+                    
+                    // 设置CSS变量用于动画
+                    segment.style.setProperty('--tx', `${point.x}px`);
+                    segment.style.setProperty('--ty', `${point.y}px`);
+                    
+                    // 随机颜色变化
+                    const colors = ['#ff3366', '#ff0066', '#ff0033', '#ff6699', '#ff0066'];
+                    segment.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    segment.style.boxShadow = `0 0 20px ${segment.style.backgroundColor}, 0 0 40px ${segment.style.backgroundColor}`;
+                    
+                    // 添加到爱心容器
+                    heartEffect.appendChild(segment);
+                    
+                    // 存储粒子引用
+                    heartSegments.push(segment);
+                    
+                    // 添加动画类
+                    setTimeout(() => {
+                        segment.classList.add('animate');
+                    }, 10);
+                    
+                }, i * 20); // 加快形成速度
+            }
+            
+            // 爱心完成后显示脉冲效果
+            setTimeout(() => {
+                heartPulse.classList.add('show');
+            }, heartPoints.length * 20 + 500);
+            
+            // 发送爱心弹幕
+            setTimeout(() => {
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        sendDanmu('❤️ 我爱你吕文婧！ ❤️', 'heart');
+                    }, i * 200);
+                }
+            }, 1000);
+            
+            // 5秒后炸开变成全屏烟花
+            explodeTimeout = setTimeout(explodeHeart, 5000);
+        }
+
+        // 创建随机小爱心
+        function createSmallHearts() {
+            const smallHeartCount = 20;
+            for (let i = 0; i < smallHeartCount; i++) {
+                setTimeout(() => {
+                    const smallHeart = document.createElement('div');
+                    smallHeart.className = 'small-heart';
+                    
+                    // 随机位置
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+                    
+                    // 随机大小
+                    const size = Math.random() * 15 + 10;
+                    smallHeart.style.width = `${size}px`;
+                    smallHeart.style.height = `${size}px`;
+                    
+                    // 随机透明度
+                    const opacity = Math.random() * 0.5 + 0.3;
+                    smallHeart.style.opacity = opacity;
+                    
+                    // 随机颜色
+                    const colors = ['#ff3366', '#ff0066', '#ff6699', '#ff99cc'];
+                    smallHeart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // 位置
+                    smallHeart.style.left = `${x}px`;
+                    smallHeart.style.top = `${y}px`;
+                    
+                    // 闪烁动画
+                    smallHeart.style.animation = `starTwinkle ${Math.random() * 2 + 1}s infinite ${Math.random() * 2}s`;
+                    
+                    document.body.appendChild(smallHeart);
+                    smallHearts.push(smallHeart);
+                }, i * 100);
+            }
+        }
+
+        // 炸开爱心变成全屏烟花
+        function explodeHeart() {
+            // 移除爱心效果
+            heartPulse.classList.remove('show');
+            heartHalo.classList.remove('show');
+            
+            // 移除小爱心
+            smallHearts.forEach(heart => {
+                if (heart.parentNode) {
+                    heart.parentNode.removeChild(heart);
+                }
+            });
+            smallHearts = [];
+            
+            // 显示全屏烟花容器
+            fireworkEffect.classList.add('show');
+            
+            // 增加烟花粒子数量
+            const particleCount = 500;
+            const colors = [
+                '#ff3366', '#ff6600', '#ffcc00', '#ff0066', '#ff0033', '#ff9900', '#ffcc33',
+                '#00ff00', '#00ffff', '#0066ff', '#9900ff', '#ff00ff', '#ffff00', '#ff5050'
+            ];
+            
+            // 清除爱心粒子
+            heartSegments.forEach(segment => {
+                if (segment.parentNode) {
+                    segment.parentNode.removeChild(segment);
+                }
+            });
+            heartSegments = [];
+            
+            // 创建多个爆炸中心
+            const centers = [
+                { x: window.innerWidth * 0.3, y: window.innerHeight * 0.3 },
+                { x: window.innerWidth * 0.7, y: window.innerHeight * 0.3 },
+                { x: window.innerWidth * 0.3, y: window.innerHeight * 0.7 },
+                { x: window.innerWidth * 0.7, y: window.innerHeight * 0.7 },
+                { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }
+            ];
+            
+            // 为每个中心创建烟花
+            centers.forEach((center, centerIndex) => {
+                for (let i = 0; i < particleCount / centers.length; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'firework-particle';
+                    
+                    // 随机颜色
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.backgroundColor = color;
+                    particle.style.boxShadow = `0 0 15px ${color}, 0 0 30px ${color}`;
+                    
+                    // 随机方向
+                    const angle = Math.random() * 2 * Math.PI;
+                    const distance = Math.random() * 400 + 200; // 200-600px距离
+                    const targetX = Math.cos(angle) * distance;
+                    const targetY = Math.sin(angle) * distance;
+                    
+                    // 设置中心位置
+                    particle.style.left = `${center.x}px`;
+                    particle.style.top = `${center.y}px`;
+                    
+                    // 设置CSS变量用于爆炸动画
+                    particle.style.setProperty('--tx', `${targetX}px`);
+                    particle.style.setProperty('--ty', `${targetY}px`);
+                    
+                    // 添加到烟花容器
+                    fireworkEffect.appendChild(particle);
+                    
+                    // 随机延迟启动爆炸动画
+                    const delay = centerIndex * 200 + Math.random() * 300;
+                    setTimeout(() => {
+                        particle.classList.add('explode');
+                        
+                        // 创建轨迹线
+                        if (Math.random() > 0.7) {
+                            createTrail(center.x, center.y, targetX, targetY, color);
+                        }
+                        
+                        // 随机创建闪光点
+                        if (Math.random() > 0.8) {
+                            createSparkle(center.x + targetX, center.y + targetY, color);
+                        }
+                    }, delay);
+                    
+                    // 动画结束后移除粒子
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 3000 + delay);
+                }
+            });
+            
+            // 发送烟花弹幕
+            setTimeout(() => {
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        sendDanmu('🎆 烟花为你绽放！ 🎆', 'star');
+                    }, i * 200);
+                }
+            }, 500);
+        }
+
+        // 创建轨迹线
+        function createTrail(startX, startY, targetX, targetY, color) {
+            const trail = document.createElement('div');
+            trail.className = 'trail-line';
+            
+            const dx = targetX;
+            const dy = targetY;
+            const length = Math.sqrt(dx * dx + dy * dy);
+            const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+            
+            trail.style.left = `${startX}px`;
+            trail.style.top = `${startY}px`;
+            trail.style.width = '50px';
+            trail.style.transform = `rotate(${angle}deg)`;
+            trail.style.background = `linear-gradient(to right, ${color}, transparent)`;
+            trail.style.setProperty('--color', color);
+            trail.style.setProperty('--length', length / 50);
+            
+            fireworkEffect.appendChild(trail);
+            
+            setTimeout(() => {
+                trail.classList.add('animate');
+            }, 10);
+            
+            setTimeout(() => {
+                if (trail.parentNode) {
+                    trail.parentNode.removeChild(trail);
+                }
+            }, 1000);
+        }
+
+        // 创建闪光点
+        function createSparkle(x, y, color) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            
+            sparkle.style.left = `${x}px`;
+            sparkle.style.top = `${y}px`;
+            sparkle.style.setProperty('--color', color);
+            
+            fireworkEffect.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 2000);
         }
 
         // 创建流星
@@ -639,11 +1120,11 @@
 
         // 祝福语数组
         const blessings = [
-            {text: '宝宝生日快乐！！！', type: 'heart'},
-            {text: '愿你前程似锦，未来可期！✨', type: 'star'},
+            {text: '文婧生日快乐！💕', type: 'heart'},
+            {text: '愿你如星光般闪耀！✨', type: 'star'},
             {text: '爱你每一天！❤️', type: 'heart'},
             {text: '新的一岁更加美好！🌸', type: 'purple'},
-            {text: '生日快乐我的臭宝！🎂', type: 'heart'},
+            {text: '生日快乐我的爱人！🎂', type: 'heart'},
             {text: '愿你永远幸福快乐！🎁', type: 'blue'},
             {text: '你是我的小幸运！💖', type: 'heart'},
             {text: '愿岁月温柔待你！🌹', type: 'purple'},
